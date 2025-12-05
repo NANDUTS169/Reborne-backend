@@ -4,20 +4,23 @@ import {
   getProductById,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 } from "../controllers/productController.js";
 
 import { protect, admin } from "../middleware/authMiddleware.js";
+import upload from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
-router.route("/")
+router
+  .route("/")
   .get(getProducts)
-  .post(protect, admin, createProduct);
+  .post(protect, upload.array("images", 10), admin, createProduct);
 
-router.route("/:id")
+router
+  .route("/:id")
   .get(getProductById)
-  .put(protect, admin, updateProduct)
+  .put(protect, upload.array("images", 10), admin, updateProduct)
   .delete(protect, admin, deleteProduct);
 
 export default router;
