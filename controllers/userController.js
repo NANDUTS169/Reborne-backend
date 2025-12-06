@@ -4,8 +4,7 @@ import generateToken from "../utils/generateToken.js";
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).select("+password");;
 
   if (user && (await user.matchPassword(password))) {
     res.json({
@@ -22,7 +21,7 @@ const authUser = asyncHandler(async (req, res) => {
 });
 
 // GET CURRENT USER
-export const getCurrentUser = asyncHandler(async (req, res) => {
+ const getCurrentUser = asyncHandler(async (req, res) => {
   // req.userId is guaranteed to exist due to the isAuthenticated middleware
   const userId = req.user._id;
   console.log(userId)
@@ -43,4 +42,4 @@ export const getCurrentUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser };
+export { authUser ,getCurrentUser};

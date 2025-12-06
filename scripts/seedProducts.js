@@ -296,7 +296,7 @@ const importData = async () => {
 
     // wipe existing data
     await Product.deleteMany();
-    // await Category.deleteMany();
+    await Category.deleteMany();
     await User.deleteMany();
 
     // create admin user (password will be hashed by the model)
@@ -309,7 +309,7 @@ const importData = async () => {
 
     // insert sample
     // await Category.insertMany(categoryData);
-    await Product.insertMany(sampleProducts);
+    // await Product.insertMany(sampleProducts);
     // console.log(await  Category.find())
     console.log("Data Imported");
     process.exit();
